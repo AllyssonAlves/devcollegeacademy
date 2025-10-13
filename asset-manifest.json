@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/devcollegeacademy/static/css/main.f87e8acc.css",
+    "main.js": "/devcollegeacademy/static/js/main.d2cf4ad2.js",
+    "static/js/239.90fe7a13.chunk.js": "/devcollegeacademy/static/js/239.90fe7a13.chunk.js",
+    "static/js/213.42811879.chunk.js": "/devcollegeacademy/static/js/213.42811879.chunk.js",
+    "static/js/455.ce0681c6.chunk.js": "/devcollegeacademy/static/js/455.ce0681c6.chunk.js",
+    "index.html": "/devcollegeacademy/index.html",
+    "main.f87e8acc.css.map": "/devcollegeacademy/static/css/main.f87e8acc.css.map",
+    "main.d2cf4ad2.js.map": "/devcollegeacademy/static/js/main.d2cf4ad2.js.map",
+    "239.90fe7a13.chunk.js.map": "/devcollegeacademy/static/js/239.90fe7a13.chunk.js.map",
+    "213.42811879.chunk.js.map": "/devcollegeacademy/static/js/213.42811879.chunk.js.map",
+    "455.ce0681c6.chunk.js.map": "/devcollegeacademy/static/js/455.ce0681c6.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f87e8acc.css",
+    "static/js/main.d2cf4ad2.js"
+  ]
+}
