@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { AppProvider } from './context/AppContext';
+import Home from './pages/Home';
+import Admin from './pages/Admin';
+import StudentArea from './pages/StudentArea';
+import Courses from './pages/Courses';
+import './styles/index.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {process.env.REACT_APP_ENABLE_ADMIN === 'true' && (
+            <Route path="/admin" element={<Admin />} />
+          )}
+          <Route path="/aluno" element={<StudentArea />} />
+          <Route path="/cursos" element={<Courses />} />
+        </Routes>
+      </div>
+    </AppProvider>
   );
 }
 
