@@ -75,6 +75,7 @@ const CourseManager = () => {
         type: actions.DELETE_COURSE,
         payload: courseId
       });
+      // persistence is handled centrally by AppContext
     }
   };
 
@@ -85,8 +86,9 @@ const CourseManager = () => {
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="form-row">
           <div className="form-group">
-            <label>Título do Curso</label>
+            <label htmlFor="course-title">Título do Curso</label>
             <input
+              id="course-title"
               type="text"
               name="title"
               placeholder="Ex: Programação para Iniciantes"
@@ -97,8 +99,9 @@ const CourseManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Faixa Etária</label>
+            <label htmlFor="course-ageRange">Faixa Etária</label>
             <input
+              id="course-ageRange"
               type="text"
               name="ageRange"
               placeholder="Ex: 6-10 anos"
@@ -110,8 +113,9 @@ const CourseManager = () => {
         </div>
 
         <div className="form-group">
-          <label>Descrição</label>
+          <label htmlFor="course-description">Descrição</label>
           <textarea
+            id="course-description"
             name="description"
             placeholder="Descreva o curso..."
             rows="3"
@@ -123,8 +127,9 @@ const CourseManager = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Duração</label>
+            <label htmlFor="course-duration">Duração</label>
             <input
+              id="course-duration"
               type="text"
               name="duration"
               placeholder="Ex: 12 semanas"
@@ -135,8 +140,9 @@ const CourseManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Preço</label>
+            <label htmlFor="course-price">Preço</label>
             <input
+              id="course-price"
               type="text"
               name="price"
               placeholder="Ex: R$ 149,00"
@@ -147,8 +153,9 @@ const CourseManager = () => {
           </div>
 
           <div className="form-group">
-            <label>Cor de Destaque</label>
+            <label htmlFor="course-color">Cor de Destaque</label>
             <input
+              id="course-color"
               type="color"
               name="color"
               value={formData.color || '#6C63FF'}
@@ -158,8 +165,9 @@ const CourseManager = () => {
         </div>
 
         <div className="form-group">
-          <label>URL da Imagem (opcional)</label>
+          <label htmlFor="course-image">URL da Imagem (opcional)</label>
           <input
+            id="course-image"
             type="url"
             name="image"
             placeholder="https://exemplo.com/imagem.jpg"

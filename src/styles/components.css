@@ -24,7 +24,7 @@ body { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'He
   width: 100%;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  z-index: 1000;
+  z-index: 2000;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
@@ -35,6 +35,9 @@ body { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'He
   align-items: center;
   padding: 1rem 0;
 }
+
+/* Reserve space so fixed header does not cover top content */
+.App { padding-top: 72px; }
 
 .logo h2 {
   color: var(--primary-color);
@@ -96,6 +99,82 @@ body { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'He
   position: relative;
   overflow: hidden;
 }
+
+/* Mobile navigation (sanduíche) */
+.nav {
+  display: flex;
+  align-items: center;
+}
+.nav-list {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-list a { padding: 8px 6px; }
+
+/* Mobile: hide desktop nav, show toggle */
+@media (max-width: 992px) {
+  .nav { position: fixed; top: 0; left: 0; right: 0; bottom: 0; display: block; pointer-events: none; }
+  /* ensure nav overlay sits below header */
+  .nav { z-index: 1000; }
+  .nav .nav-list { display: none; }
+  /* keep CTA visible but smaller on mobile so toggle remains available */
+  .header-actions .btn.btn-primary {
+    display: inline-block !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.85rem !important;
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+  .header-actions { gap: 8px; align-items: center; }
+  .logo { flex: 0 0 auto; }
+  .site-logo { max-height: 48px; }
+  /* constrain logo so it doesn't force the header wide */
+  .logo img.site-logo { max-width: 140px !important; height: auto; }
+  .header-content { padding: 0.6rem 0; }
+  .header { overflow: visible; }
+  .nav.nav-open { background: rgba(15,23,42,0.85); pointer-events: auto; }
+  .nav.nav-open .nav-list { display: flex; flex-direction: column; gap: 18px; align-items: center; justify-content:center; height:100%; padding: 2rem; }
+  .nav-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    color: var(--white);
+    font-size: 2rem;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    z-index: 2102;
+  }
+  .nav.nav-open .nav-list a { color: var(--white); font-size: 1.1rem; padding: 12px 18px; background: transparent; border-radius: 10px; }
+  .menu-toggle { display: flex !important; background: transparent; border: none; cursor: pointer; }
+  .menu-toggle span { background: var(--dark-color); height: 3px; display:block; width:26px; margin:4px 0; border-radius:2px; transition: transform .2s, opacity .2s; }
+  .nav-open + .header-actions .menu-toggle span { background: var(--white); }
+  .header-actions { gap: 8px; }
+  .btn.btn-primary { padding: 0.6rem 0.9rem; font-size: 0.95rem; }
+}
+
+/* Make hamburger easier to see and tap */
+.menu-toggle {
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1101; /* above header overlay */
+}
+.menu-toggle:focus {
+  outline: 3px solid rgba(124, 58, 237, 0.18);
+  outline-offset: 2px;
+}
+.menu-toggle:hover { background: rgba(255,255,255,0.09); }
+
+/* When menu is open animate hamburger to X (simple) */
+.menu-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 .hero-content {
   display: grid;
@@ -872,4 +951,47 @@ body { font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'He
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
+}
+
+/* extra safety for smaller viewports: ensure toggle is visible */
+@media (max-width: 768px) {
+  .menu-toggle { display: flex !important; z-index: 2100; }
+}
+
+/* Tighten layout for very small phones (e.g., iPhone widths) */
+@media (max-width: 430px) {
+  .App { padding-top: 60px; }
+
+  .hero {
+    padding: 4.5rem 0 2.5rem;
+  }
+
+  .hero-text h1 {
+    font-size: 1.6rem;
+    line-height: 1.25;
+  }
+
+  .hero-text p {
+    font-size: 0.95rem;
+  }
+
+  .hero-actions {
+    gap: 0.6rem;
+  }
+
+  .hero-actions .btn {
+    padding: 0.55rem 0.8rem;
+    font-size: 0.9rem;
+    border-radius: 10px;
+  }
+
+  .hero-graphic {
+    width: 240px;
+    height: 240px;
+  }
+
+  .mascot-svg { max-width: 180px; }
+
+  /* reduce whitespace around CTA area */
+  .hero-actions { max-width: 95%; margin-left: auto; margin-right: auto; }
 }

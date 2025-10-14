@@ -13,7 +13,7 @@ function App() {
       <div className="App">
         <Routes>
           <Route path="/" element={<Home />} />
-          {process.env.REACT_APP_ENABLE_ADMIN === 'true' && (
+          {(process.env.NODE_ENV === 'development' || process.env.REACT_APP_ENABLE_ADMIN === 'true') && (
             <Route path="/admin" element={<Admin />} />
           )}
           <Route path="/aluno" element={<StudentArea />} />

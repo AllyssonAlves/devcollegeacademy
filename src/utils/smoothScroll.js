@@ -34,12 +34,24 @@ function handleLinkClick(e) {
   e.preventDefault();
   // If we're already on the homepage path, just scroll to element. Otherwise navigate to home then scroll after load.
   const currentPath = window.location.pathname || '/';
-  if (href.startsWith('/') && href.indexOf('#') === 0) {
-    // malformed, just scroll
-    scrollToHash(hash);
-    return;
+  // If href is like '/#id' treat it as a hash-only navigation on the current path
+  if (href.startsWith('/') && href.includes('#')) {
+    const base = href.split('#')[0] || '/';
+    // If base is just '/', don't perform a full navigation — just update the hash and scroll
+    if (base === '/' || base === '') {
+      // Update URL hash without reloading
+      if (history && history.pushState) {
+        history.pushState(null, '', hash);
+      } else {
+        window.location.hash = hash;
+      }
+      scrollToHash(hash);
+      return;
+    }
+    // Otherwise, allow normal navigation to the path+hash
   }
-  const targetPath = href.startsWith('/') ? href.split('#')[0] || '/' : currentPath;
+
+  const targetPath = href.startsWith('/') ? (href.split('#')[0] || '/') : currentPath;
   const targetHash = hash;
   if (targetPath === currentPath) {
     scrollToHash(targetHash);

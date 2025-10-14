@@ -79,10 +79,12 @@ const StudentManager = () => {
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="form-row">
           <div className="form-group">
-            <label>Nome do Aluno</label>
+            <label htmlFor="student-name">Nome do Aluno</label>
             <input
+              id="student-name"
               type="text"
               name="name"
+              autoComplete="name"
               placeholder="Nome completo"
               value={formData.name || ''}
               onChange={handleChange}
@@ -91,10 +93,12 @@ const StudentManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Email</label>
+            <label htmlFor="student-email">Email</label>
             <input
+              id="student-email"
               type="email"
               name="email"
+              autoComplete="email"
               placeholder="email@exemplo.com"
               value={formData.email || ''}
               onChange={handleChange}
@@ -103,10 +107,12 @@ const StudentManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Idade</label>
+            <label htmlFor="student-age">Idade</label>
             <input
+              id="student-age"
               type="number"
               name="age"
+              autoComplete="bday"
               placeholder="12"
               value={formData.age || ''}
               onChange={handleChange}
@@ -117,9 +123,11 @@ const StudentManager = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Curso</label>
+            <label htmlFor="student-course">Curso</label>
             <select
+              id="student-course"
               name="course"
+              autoComplete="organization"
               value={formData.course || ''}
               onChange={handleChange}
               required
@@ -134,10 +142,12 @@ const StudentManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Plano</label>
+            <label htmlFor="student-plan">Plano</label>
             <input
+              id="student-plan"
               type="text"
               name="plan"
+              autoComplete="off"
               placeholder="Ex: Plano Premium"
               value={formData.plan || ''}
               onChange={handleChange}
@@ -146,10 +156,12 @@ const StudentManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Valor do Plano (R$)</label>
+            <label htmlFor="student-planPrice">Valor do Plano (R$)</label>
             <input
+              id="student-planPrice"
               type="number"
               name="planPrice"
+              autoComplete="off"
               placeholder="249"
               value={formData.planPrice === undefined ? '' : formData.planPrice}
               onChange={handleChange}
@@ -160,9 +172,11 @@ const StudentManager = () => {
 
         <div className="form-row">
           <div className="form-group">
-            <label>Status</label>
+            <label htmlFor="student-status">Status</label>
             <select
+              id="student-status"
               name="status"
+              autoComplete="off"
               value={formData.status || 'active'}
               onChange={handleChange}
             >
@@ -173,10 +187,12 @@ const StudentManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Progresso (%)</label>
+            <label htmlFor="student-progress">Progresso (%)</label>
             <input
+              id="student-progress"
               type="number"
               name="progress"
+              autoComplete="off"
               min="0"
               max="100"
               placeholder="75"

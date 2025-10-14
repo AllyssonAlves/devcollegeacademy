@@ -5,9 +5,9 @@ import { useApp } from '../context/AppContext';
 const Courses = () => {
   const { courses, siteConfig } = useApp();
 
-  const phoneRaw = siteConfig?.contact?.phone || '';
+  const phoneRaw = siteConfig?.contact?.phone || '5588994814505';
   const digits = (phoneRaw.match(/\d+/g) || []).join('');
-  const base = digits ? `https://wa.me/${digits}` : 'https://wa.me/5511999999999';
+  const base = digits ? `https://wa.me/${digits}` : 'https://wa.me/5588994814505';
 
   return (
     <section className="courses-landing container" style={{padding:'4rem 1rem'}}>

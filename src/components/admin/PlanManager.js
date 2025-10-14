@@ -75,8 +75,9 @@ const PlanManager = () => {
       <form onSubmit={handleSubmit} className="admin-form">
         <div className="form-row">
           <div className="form-group">
-            <label>Nome do Plano</label>
+            <label htmlFor="plan-name">Nome do Plano</label>
             <input
+              id="plan-name"
               type="text"
               name="name"
               placeholder="Ex: Plano Básico"
@@ -87,8 +88,9 @@ const PlanManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Preço</label>
+            <label htmlFor="plan-price">Preço</label>
             <input
+              id="plan-price"
               type="text"
               name="price"
               placeholder="Ex: R$ 149"
@@ -99,8 +101,9 @@ const PlanManager = () => {
           </div>
           
           <div className="form-group">
-            <label>Período</label>
+            <label htmlFor="plan-period">Período</label>
             <select
+              id="plan-period"
               name="period"
               value={formData.period || 'mensal'}
               onChange={handleChange}
@@ -114,8 +117,9 @@ const PlanManager = () => {
         </div>
         
         <div className="form-group">
-          <label>Características (uma por linha)</label>
+          <label htmlFor="plan-features">Características (uma por linha)</label>
           <textarea
+            id="plan-features"
             name="features"
             placeholder="Ex: Acesso à plataforma online&#10;Suporte por email&#10;Certificado de conclusão"
             rows="5"
@@ -126,15 +130,14 @@ const PlanManager = () => {
         </div>
         
         <div className="form-group checkbox-group">
-          <label>
-            <input
-              type="checkbox"
-              name="popular"
-              checked={!!formData.popular}
-              onChange={handleChange}
-            />
-            Marcar como plano popular
-          </label>
+          <input
+            id="plan-popular"
+            type="checkbox"
+            name="popular"
+            checked={!!formData.popular}
+            onChange={handleChange}
+          />
+          <label htmlFor="plan-popular">Marcar como plano popular</label>
         </div>
         
         <div className="form-actions">

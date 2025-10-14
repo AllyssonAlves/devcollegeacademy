@@ -122,16 +122,16 @@ const SettingsManager = () => {
             <div style={{marginTop:12}}>
               <div className="preview-controls" style={{display:'flex', gap:8, alignItems:'center', marginBottom:8}}>
                 <div>
-                  <label>Visualizar como:</label>
-                  <select value={previewView} onChange={(e) => setPreviewView(e.target.value)}>
+                  <label htmlFor="preview-view">Visualizar como:</label>
+                  <select id="preview-view" value={previewView} onChange={(e) => setPreviewView(e.target.value)}>
                     <option value="hero">Hero</option>
                     <option value="avatar">Avatar</option>
                     <option value="footer">Footer</option>
                   </select>
                 </div>
                 <div>
-                  <label>Tamanho:</label>
-                  <select value={previewSize} onChange={(e) => setPreviewSize(e.target.value)}>
+                  <label htmlFor="preview-size">Tamanho:</label>
+                  <select id="preview-size" value={previewSize} onChange={(e) => setPreviewSize(e.target.value)}>
                     <option value="small">Pequeno</option>
                     <option value="medium">Médio</option>
                     <option value="large">Grande</option>

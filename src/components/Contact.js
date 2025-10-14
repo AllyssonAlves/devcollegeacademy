@@ -54,7 +54,7 @@ const Contact = () => {
                 <div className="contact-icon">📞</div>
                 <div className="contact-text">
                   <h4>Telefone</h4>
-                  <p>{siteConfig?.contact?.phone || '(11) 9999-9999'}</p>
+                  <p>{siteConfig?.contact?.phone || '(88) 99481-4505'}</p>
                 </div>
               </div>
               <div className="contact-item">
