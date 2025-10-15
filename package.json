@@ -1,5 +1,6 @@
 {
   "name": "devcollege-academy",
+  "homepage": "https://allyssonalves.github.io/devcollegeacademy/",
   "version": "1.0.0",
   "description": "Landing page para cursos de tecnologia para crianças",
   "main": "index.js",
