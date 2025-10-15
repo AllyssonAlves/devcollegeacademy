@@ -4,9 +4,15 @@ import PlanManager from './PlanManager';
 import StudentManager from './StudentManager';
 import MetricsDashboard from './MetricsDashboard';
 import SettingsManager from './SettingsManager';
+import { useApp } from '../../context/AppContext';
 
 const AdminDashboard = ({ onLogout }) => {
   const [activeTab, setActiveTab] = useState('metrics');
+  const { courses } = useApp();
+
+  React.useEffect(() => {
+    console.debug('[AdminDashboard] courses length:', (courses || []).length);
+  }, [courses]);
 
   const renderContent = () => {
     switch (activeTab) {

@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 
 const CourseManager = () => {
-  const { courses, dispatch, actions } = useApp();
+  const app = useApp();
+  const { courses, dispatch, actions } = app;
   const [editingCourse, setEditingCourse] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     ageRange: '',
     duration: '',
-    price: '',
     color: '#6C63FF',
-    image: ''
   });
 
   const handleChange = (e) => {
@@ -21,27 +20,24 @@ const CourseManager = () => {
     });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload = { ...formData };
-    // Se estiver editando e o campo image não foi alterado, mantenha o valor anterior
+    // Se estiver editando
     if (editingCourse) {
-      if (!formData.image) {
-        payload.image = editingCourse.image || '';
-      }
       dispatch({
         type: actions.UPDATE_COURSE,
         payload: { ...payload, id: editingCourse.id }
       });
+      console.debug('[CourseManager] dispatched UPDATE_COURSE', { ...payload, id: editingCourse.id });
     } else {
-      // Se não houver imagem, remova o campo para não salvar string vazia
-      if (!formData.image) {
-        delete payload.image;
-      }
+      // Add course
       dispatch({
         type: actions.ADD_COURSE,
         payload
       });
+      console.debug('[CourseManager] dispatched ADD_COURSE', payload);
     }
     // Reset form
     setFormData({
@@ -49,11 +45,14 @@ const CourseManager = () => {
       description: '',
       ageRange: '',
       duration: '',
-      price: '',
       color: '#6C63FF',
       image: ''
     });
     setEditingCourse(null);
+    // Log current courses after a tick so AppContext has time to persist
+    setTimeout(() => {
+      try { console.debug('[CourseManager] current courses count (post-submit):', courses.length); } catch (e) {}
+    }, 50);
   };
 
   const handleEdit = (course) => {
@@ -63,9 +62,7 @@ const CourseManager = () => {
       description: course.description || '',
       ageRange: course.ageRange || '',
       duration: course.duration || '',
-      price: course.price || '',
-      color: course.color || '#6C63FF',
-      image: course.image || ''
+      color: course.color || '#6C63FF'
     });
   };
 
@@ -75,6 +72,7 @@ const CourseManager = () => {
         type: actions.DELETE_COURSE,
         payload: courseId
       });
+      console.debug('[CourseManager] dispatched DELETE_COURSE', courseId);
       // persistence is handled centrally by AppContext
     }
   };
@@ -139,18 +137,7 @@ const CourseManager = () => {
             />
           </div>
           
-          <div className="form-group">
-            <label htmlFor="course-price">Preço</label>
-            <input
-              id="course-price"
-              type="text"
-              name="price"
-              placeholder="Ex: R$ 149,00"
-              value={formData.price || ''}
-              onChange={handleChange}
-              required
-            />
-          </div>
+          {/* Price removed — prices are not displayed in the UI; modules count is shown on the public site */}
 
           <div className="form-group">
             <label htmlFor="course-color">Cor de Destaque</label>
@@ -164,17 +151,7 @@ const CourseManager = () => {
           </div>
         </div>
 
-        <div className="form-group">
-          <label htmlFor="course-image">URL da Imagem (opcional)</label>
-          <input
-            id="course-image"
-            type="url"
-            name="image"
-            placeholder="https://exemplo.com/imagem.jpg"
-              value={formData.image || ''}
-            onChange={handleChange}
-          />
-        </div>
+        {/* Image selection removed: images are managed by code */}
         
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
@@ -204,7 +181,7 @@ const CourseManager = () => {
         </div>
       </form>
       
-      <div className="admin-list">
+        <div className="admin-list">
         <h3>Cursos Cadastrados ({courses.length})</h3>
         
         {courses.length === 0 ? (
@@ -226,7 +203,7 @@ const CourseManager = () => {
                 <div className="item-meta">
                   <span>Idade: {course.ageRange}</span>
                   <span>Duração: {course.duration}</span>
-                  <span>Preço: {course.price}</span>
+                  <span>Módulos: {(course.lessons || []).length}</span>
                 </div>
               </div>
               <div className="item-actions">
@@ -247,6 +224,7 @@ const CourseManager = () => {
           ))
         )}
       </div>
+      {/* image debug buttons removed */}
     </div>
   );
 };

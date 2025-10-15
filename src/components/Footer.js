@@ -14,10 +14,18 @@ const Footer = () => {
               <p>{siteConfig?.description || 'Preparando crianças para o futuro através da tecnologia'}</p>
             </div>
             <div className="social-links">
-              <a href="#" aria-label="Instagram">📷</a>
-              <a href="#" aria-label="Facebook">📘</a>
-              <a href="#" aria-label="YouTube">📺</a>
-              <a href="#" aria-label="LinkedIn">💼</a>
+              <a href="https://www.instagram.com/devcollege" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                <img src={process.env.PUBLIC_URL + '/assets/instagram.svg'} alt="Instagram" width="20" height="20" />
+              </a>
+              <a href="https://www.facebook.com/devcollegeacademy" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <img src={process.env.PUBLIC_URL + '/assets/facebook.svg'} alt="Facebook" width="20" height="20" />
+              </a>
+              <a href="https://wa.me/5588994814505" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                <img src={process.env.PUBLIC_URL + '/assets/whatsapp.svg'} alt="WhatsApp" width="20" height="20" />
+              </a>
+              <a href="https://www.linkedin.com/company/devcollegeacademy" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                <img src={process.env.PUBLIC_URL + '/assets/linkedin.svg'} alt="LinkedIn" width="20" height="20" />
+              </a>
             </div>
           </div>
           

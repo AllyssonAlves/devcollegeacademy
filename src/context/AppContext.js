@@ -1,43 +1,73 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import embeddedCourseImages from '../data/embeddedCourseImages.json';
 
 // Estado inicial com dados de exemplo
 const initialState = {
   courses: [
     {
       id: 1,
-      title: 'Programação para Iniciantes',
-      description: 'Introdução à lógica de programação com Scratch e Blockly',
-      ageRange: '6-10 anos',
-      duration: '12 semanas',
-      price: 'R$ 149',
-      color: '#6C63FF'
-      ,
+      title: 'Programação de Aplicativos',
+      description: 'Dê asas à imaginação! Com 12 módulos e aulas ao vivo, eles aprenderão a desenvolver apps funcionais e jogos divertidos, usando a lógica e a criatividade.',
+      ageRange: '9-15 anos',
+  duration: '12 módulos',
+      color: '#3B82F6',
+  image: process.env.PUBLIC_URL + '/assets/app_course.svg',
       lessons: [
-        { id: '1-1', title: 'Introdução à Programação' },
-        { id: '1-2', title: 'Sequências e Comandos' },
-        { id: '1-3', title: 'Loops' },
-        { id: '1-4', title: 'Condições' },
-        { id: '1-5', title: 'Variáveis' },
-        { id: '1-6', title: 'Eventos' },
-        { id: '1-7', title: 'Funções' },
-        { id: '1-8', title: 'Projeto Final' }
+        { id: '1-1', title: 'Módulo 1' },
+        { id: '1-2', title: 'Módulo 2' },
+        { id: '1-3', title: 'Módulo 3' },
+        { id: '1-4', title: 'Módulo 4' },
+        { id: '1-5', title: 'Módulo 5' },
+        { id: '1-6', title: 'Módulo 6' },
+        { id: '1-7', title: 'Módulo 7' },
+        { id: '1-8', title: 'Módulo 8' },
+        { id: '1-9', title: 'Módulo 9' },
+        { id: '1-10', title: 'Módulo 10' },
+        { id: '1-11', title: 'Módulo 11' },
+        { id: '1-12', title: 'Módulo 12' }
       ]
     },
     {
       id: 2,
-      title: 'Criação de Games',
-      description: 'Desenvolvimento de jogos com Roblox e Minecraft',
-      ageRange: '8-12 anos',
-      duration: '16 semanas',
-      price: 'R$ 249',
-      color: '#FF6584'
-      ,
+      title: 'Inteligência Artificial',
+      description: 'Mergulhe no mundo da IA! Nossos jovens cientistas desvendarão como a Inteligência Artificial funciona e darão os primeiros passos para construir o futuro. 9 módulos de pura descoberta.',
+      ageRange: '10-15 anos',
+  duration: '9 módulos',
+      color: '#8B5CF6',
+  image: process.env.PUBLIC_URL + '/assets/ai_course.svg',
       lessons: [
-        { id: '2-1', title: 'Conceitos de Game Design' },
-        { id: '2-2', title: 'Blocos e Mecânicas' },
-        { id: '2-3', title: 'Sprites e Animações' },
-        { id: '2-4', title: 'Criação de Níveis' },
-        { id: '2-5', title: 'Publicando seu Jogo' }
+        { id: '2-1', title: 'Módulo 1' },
+        { id: '2-2', title: 'Módulo 2' },
+        { id: '2-3', title: 'Módulo 3' },
+        { id: '2-4', title: 'Módulo 4' },
+        { id: '2-5', title: 'Módulo 5' },
+        { id: '2-6', title: 'Módulo 6' },
+        { id: '2-7', title: 'Módulo 7' },
+        { id: '2-8', title: 'Módulo 8' },
+        { id: '2-9', title: 'Módulo 9' }
+      ]
+    },
+    {
+      id: 3,
+      title: 'Desenvolvimento Web (HTML + CSS + Python)',
+      description: 'Para os futuros arquitetos da internet! A partir dos 10 anos, eles aprenderão a criar sites dinâmicos e interativos, dominando linguagens essenciais do universo digital.',
+      ageRange: '10+ anos',
+  duration: '12 módulos',
+      color: '#06B6D4',
+  image: process.env.PUBLIC_URL + '/assets/web_course.svg',
+      lessons: [
+        { id: '3-1', title: 'Módulo 1' },
+        { id: '3-2', title: 'Módulo 2' },
+        { id: '3-3', title: 'Módulo 3' },
+        { id: '3-4', title: 'Módulo 4' },
+        { id: '3-5', title: 'Módulo 5' },
+        { id: '3-6', title: 'Módulo 6' },
+        { id: '3-7', title: 'Módulo 7' },
+        { id: '3-8', title: 'Módulo 8' },
+        { id: '3-9', title: 'Módulo 9' },
+        { id: '3-10', title: 'Módulo 10' },
+        { id: '3-11', title: 'Módulo 11' },
+        { id: '3-12', title: 'Módulo 12' }
       ]
     }
   ],
@@ -406,32 +436,148 @@ export const AppProvider = ({ children }) => {
   // Carregar dados do localStorage na inicialização
   useEffect(() => {
     const savedData = localStorage.getItem('devcollege_data');
+    const sanitizeLoadedData = (obj) => {
+      if (!obj || typeof obj !== 'object') return obj;
+      const cloned = { ...obj };
+      if (Array.isArray(cloned.courses)) {
+        cloned.courses = cloned.courses.map(c => {
+          if (!c || typeof c !== 'object') return c;
+          const copy = { ...c };
+          if (typeof copy.image === 'string' && copy.image.trim()) {
+            const img = copy.image.trim();
+            // If it starts with PUBLIC_URL, strip that so we store relative '/assets/...' paths
+            const publicUrl = process.env.PUBLIC_URL || '';
+            if (publicUrl && img.startsWith(publicUrl)) {
+              copy.image = img.slice(publicUrl.length) || img.replace(new RegExp(`^${publicUrl}`), '');
+            } else if (img.startsWith(window?.location?.origin || '')) {
+              // remove origin if present
+              copy.image = img.slice((window.location.origin || '').length) || img.replace(new RegExp(`^${window.location.origin}`), '');
+            } else {
+              copy.image = img;
+            }
+            // ensure leading slash for relative paths
+            if (copy.image && !copy.image.startsWith('/')) copy.image = '/' + copy.image;
+          }
+          return copy;
+        });
+      }
+      return cloned;
+    };
+
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
-        // loaded saved state from localStorage (no verbose logging in production)
-        dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: parsedData });
+        // Validate parsed shape before loading to avoid overwriting state with malformed data
+        const isValidSavedState = (obj) => {
+          if (!obj || typeof obj !== 'object') return false;
+          // basic expectations
+          if (!Array.isArray(obj.courses)) return false;
+          if (!Array.isArray(obj.plans)) return false;
+          if (!Array.isArray(obj.students)) return false;
+          return true;
+        };
+
+        if (isValidSavedState(parsedData)) {
+          // sanitize images and load saved state from localStorage
+          let sanitized = sanitizeLoadedData(parsedData);
+          // Optionally force embed images from code (overrides admin choices).
+          // Controlled by env var REACT_APP_FORCE_EMBEDDED_COURSE_IMAGES (default true for immediate fix)
+          const forceEmbedded = (process.env.REACT_APP_FORCE_EMBEDDED_COURSE_IMAGES || 'true') === 'true';
+          if (forceEmbedded && embeddedCourseImages) {
+            // Only apply embedded image when course has no image set (respect admin choices)
+            sanitized.courses = (sanitized.courses || []).map(c => {
+              const idKey = String(c.id);
+              if (!c.image && embeddedCourseImages[idKey]) {
+                return { ...c, image: embeddedCourseImages[idKey] };
+              }
+              return c;
+            });
+          }
+          dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: sanitized });
+        } else {
+          console.warn('[AppContext] saved localStorage devcollege_data has unexpected shape — ignoring to avoid data loss', parsedData);
+        }
       } catch (error) {
         console.error('Erro ao carregar dados do localStorage:', error);
       }
     } else {
-      console.log('[AppContext] Nenhum dado encontrado no localStorage, usando estado inicial.');
+        console.log('[AppContext] Nenhum dado encontrado no localStorage, tentando migrar de chaves legadas.');
+        // Attempt migration from legacy keys if present
+        try {
+          const legacyCourses = localStorage.getItem('devcollege_courses');
+          const legacyPlans = localStorage.getItem('devcollege_plans');
+          const legacyTestimonials = localStorage.getItem('devcollege_testimonials');
+          let migrated = false;
+          const payload = {};
+          if (legacyCourses) {
+            try { payload.courses = JSON.parse(legacyCourses); migrated = true; } catch (e) { /* ignore */ }
+          }
+          if (legacyPlans) {
+            try { payload.plans = JSON.parse(legacyPlans); migrated = true; } catch (e) { /* ignore */ }
+          }
+          if (legacyTestimonials) {
+            try { payload.testimonials = JSON.parse(legacyTestimonials); migrated = true; } catch (e) { /* ignore */ }
+          }
+          if (migrated) {
+            console.log('[AppContext] Migrated legacy data into state:', {
+              courses: (payload.courses || []).length,
+              plans: (payload.plans || []).length,
+              testimonials: (payload.testimonials || []).length
+            });
+            dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: { ...payload } });
+          }
+        } catch (err) {
+          // ignore migration errors
+        }
     }
   }, []);
 
   // Recarregar dados do localStorage sempre que a aba for focada ou quando houver alteração em outra aba
   useEffect(() => {
     const handleSync = (e) => {
-      if (e.type === 'focus' || (e.key === 'devcollege_data' && e.storageArea === localStorage)) {
-        const savedData = localStorage.getItem('devcollege_data');
-        if (savedData) {
-          try {
+      try {
+        if (e.type === 'focus') {
+          const savedData = localStorage.getItem('devcollege_data');
+          if (savedData) {
             const parsedData = JSON.parse(savedData);
-            dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: parsedData });
-          } catch (error) {
-            console.error('Erro ao recarregar dados do localStorage:', error);
+            // reuse validation
+            const isValidSavedState = (obj) => {
+              if (!obj || typeof obj !== 'object') return false;
+              if (!Array.isArray(obj.courses)) return false;
+              if (!Array.isArray(obj.plans)) return false;
+              if (!Array.isArray(obj.students)) return false;
+              return true;
+            };
+            if (isValidSavedState(parsedData)) {
+              dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: parsedData });
+            } else {
+              console.warn('[AppContext] Ignoring invalid saved data on focus sync');
+            }
+          }
+        } else if (e.key === 'devcollege_data' && e.storageArea === localStorage) {
+          const savedData = localStorage.getItem('devcollege_data');
+          if (savedData) {
+            try {
+              const parsedData = JSON.parse(savedData);
+              const isValidSavedState = (obj) => {
+                if (!obj || typeof obj !== 'object') return false;
+                if (!Array.isArray(obj.courses)) return false;
+                if (!Array.isArray(obj.plans)) return false;
+                if (!Array.isArray(obj.students)) return false;
+                return true;
+              };
+              if (isValidSavedState(parsedData)) {
+                dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: parsedData });
+              } else {
+                console.warn('[AppContext] Ignoring invalid saved data from storage event');
+              }
+            } catch (error) {
+              console.error('Erro ao recarregar dados do localStorage:', error);
+            }
           }
         }
+      } catch (err) {
+        console.error('Error in handleSync:', err);
       }
     };
     window.addEventListener('focus', handleSync);
@@ -446,6 +592,10 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     try {
       localStorage.setItem('devcollege_data', JSON.stringify(state));
+      try {
+        // small debug info to help trace persistence issues
+        console.debug('[AppContext] Saved devcollege_data — courses:', (state.courses || []).length, 'plans:', (state.plans || []).length, 'students:', (state.students || []).length);
+      } catch (e) {}
     } catch (error) {
       console.error('Erro ao salvar dados no localStorage:', error);
     }
@@ -478,6 +628,47 @@ export const AppProvider = ({ children }) => {
     dispatch,
     actions: ACTION_TYPES
   };
+
+  // Dev helper: expose a helper to add a course from the browser console for quick testing
+  React.useEffect(() => {
+    if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+      window.__dev_addCourse = (course) => {
+        try {
+          dispatch({ type: ACTION_TYPES.ADD_COURSE, payload: course });
+          console.debug('[AppContext] dev helper added course', course);
+        } catch (e) {
+          console.error('dev addCourse failed', e);
+        }
+      };
+      return () => { try { delete window.__dev_addCourse; } catch (e) {} };
+    }
+  }, [dispatch]);
+
+  // One-time auto-correction: apply embedded images mapping to persisted courses and save.
+  React.useEffect(() => {
+    try {
+      const markerKey = 'devcollege_images_autocorrected_v1';
+      if (localStorage.getItem(markerKey)) return;
+      // Only run if we have embedded images mapping
+      if (!embeddedCourseImages) return;
+      // Build normalized state using current state as base
+      const normalizedCourses = (state.courses || []).map(c => {
+        const idKey = String(c.id);
+        if (embeddedCourseImages[idKey]) {
+          return { ...c, image: embeddedCourseImages[idKey] };
+        }
+        return c;
+      });
+      const toSave = { ...state, courses: normalizedCourses };
+      // Persist and dispatch new data
+      localStorage.setItem('devcollege_data', JSON.stringify(toSave));
+      dispatch({ type: ACTION_TYPES.LOAD_DATA, payload: toSave });
+      localStorage.setItem(markerKey, '1');
+      console.debug('[AppContext] Auto-applied embedded course images and saved state');
+    } catch (err) {
+      console.error('Auto-correction failed:', err);
+    }
+  }, []);
 
   return (
     <AppContext.Provider value={value}>

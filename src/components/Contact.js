@@ -47,21 +47,21 @@ const Contact = () => {
                 <div className="contact-icon">📧</div>
                 <div className="contact-text">
                   <h4>Email</h4>
-                  <p>{siteConfig?.contact?.email || 'contato@devcollegeacademy.com'}</p>
+                  <p>devcollegeacademy@gmail.com</p>
                 </div>
               </div>
               <div className="contact-item">
                 <div className="contact-icon">📞</div>
                 <div className="contact-text">
                   <h4>Telefone</h4>
-                  <p>{siteConfig?.contact?.phone || '(88) 99481-4505'}</p>
+                  <p>(88) 99481-4505</p>
                 </div>
               </div>
               <div className="contact-item">
                 <div className="contact-icon">📍</div>
                 <div className="contact-text">
                   <h4>Endereço</h4>
-                  <p>{siteConfig?.contact?.address || 'Av. Paulista, 1000 - São Paulo, SP'}</p>
+                  <p>Atendimento Remoto</p>
                 </div>
               </div>
             </div>
