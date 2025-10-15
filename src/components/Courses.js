@@ -16,7 +16,12 @@ const normalizePath = (imgPath) => {
   // If it's already an absolute URL or starts with PUBLIC_URL or an absolute path, return as-is
   if (/^https?:\/\//i.test(trimmed)) return trimmed;
   if (trimmed.startsWith(process.env.PUBLIC_URL)) return trimmed;
-  if (trimmed.startsWith('/')) return trimmed;
+  // If it starts with a leading slash (e.g. /assets/...), prefix with PUBLIC_URL so GitHub Pages resolves under the repo
+  if (trimmed.startsWith('/')) {
+    const pub = process.env.PUBLIC_URL || '';
+    // Avoid duplicate slashes when PUBLIC_URL already ends with '/'
+    return (pub.endsWith('/') ? pub.slice(0, -1) : pub) + trimmed;
+  }
   // If starts with ./ or without leading slash, prefix with PUBLIC_URL
   const cleaned = trimmed.replace(/^\.\//, '');
   return (process.env.PUBLIC_URL || '') + '/' + cleaned.replace(/^\/+/, '');
