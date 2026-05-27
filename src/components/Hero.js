@@ -25,11 +25,11 @@ const Hero = () => {
             <h1>Prepare seu filho para o futuro com tecnologia</h1>
             <p>Na DevCollege Academy, crianças e adolescentes aprendem programação, robótica e criação de games de forma divertida e interativa.</p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="/cursos">Conheça nossos cursos</a>
+              <a className="btn btn-primary" href={process.env.PUBLIC_URL + '/cursos'}>Conheça nossos cursos</a>
               {(() => {
                 const phoneRaw = siteConfig?.contact?.phone || '5588994814505';
                 const digits = (phoneRaw.match(/\d+/g) || []).join('');
-                const base = digits ? `https://wa.me/${5588994814505}` : 'https://wa.me/5588994814505';
+                const base = digits ? `https://wa.me/${digits}` : 'https://wa.me/5588994814505';
                 const message = encodeURIComponent('Olá! Gostaria de agendar uma aula experimental na DevCollege Academy.');
                 const wa = `${base}?text=${message}`;
                 return (<a className="btn btn-secondary" href={wa} target="_blank" rel="noopener noreferrer">Agende uma aula experimental</a>);
