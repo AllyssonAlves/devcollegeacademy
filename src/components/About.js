@@ -16,15 +16,15 @@ const About = () => {
             
             <div className="about-stats">
               <div className="stat">
-                <h3>500+</h3>
+                <h3>100+</h3>
                 <p>Alunos formados</p>
               </div>
               <div className="stat">
-                <h3>15+</h3>
+                <h3>5+</h3>
                 <p>Cursos disponíveis</p>
               </div>
               <div className="stat">
-                <h3>98%</h3>
+                <h3>100%</h3>
                 <p>Taxa de satisfação</p>
               </div>
             </div>

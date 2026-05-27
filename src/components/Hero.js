@@ -29,7 +29,7 @@ const Hero = () => {
               {(() => {
                 const phoneRaw = siteConfig?.contact?.phone || '5588994814505';
                 const digits = (phoneRaw.match(/\d+/g) || []).join('');
-                const base = digits ? `https://wa.me/${digits}` : 'https://wa.me/5588994814505';
+                const base = digits ? `https://wa.me/${5588994814505}` : 'https://wa.me/5588994814505';
                 const message = encodeURIComponent('Olá! Gostaria de agendar uma aula experimental na DevCollege Academy.');
                 const wa = `${base}?text=${message}`;
                 return (<a className="btn btn-secondary" href={wa} target="_blank" rel="noopener noreferrer">Agende uma aula experimental</a>);
